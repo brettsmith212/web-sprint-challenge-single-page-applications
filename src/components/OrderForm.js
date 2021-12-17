@@ -78,7 +78,6 @@ function OrderForm(props) {
   const onChange = (e) => {
     const { name, value, checked, type } = e.target;
     const valueNeeded = type === "checkbox" ? checked : value;
-    console.log(name, valueNeeded);
     changedInput(name, valueNeeded);
   };
 
@@ -197,7 +196,7 @@ function OrderForm(props) {
             value={formValues.specialText}
           />
         </SpecialInstructions>
-        <button>Add to Order</button>
+        <button id="order-button">Add to Order</button>
       </form>
     </OrderFormContainer>
   );
