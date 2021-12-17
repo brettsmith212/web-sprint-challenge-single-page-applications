@@ -62,7 +62,6 @@ const App = () => {
   const [disabled, setDisabled] = useState(initialDisabled);
   let history = useHistory();
   let path = "order";
-  console.log("API Return: ", order);
 
   const postOrder = (newOrder) => {
     console.log("running post order");

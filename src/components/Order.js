@@ -30,7 +30,7 @@ const OrderContainer = styled.section`
 
 function Order(props) {
   const { order } = props;
-  console.log(order);
+  console.log("API Returned: ", order);
 
   const {
     name,
@@ -44,7 +44,6 @@ function Order(props) {
     specialText,
   } = order;
 
-  console.log(name);
   return (
     <OrderContainer>
       <h1>Thank you for your order {name}!</h1>
