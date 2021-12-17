@@ -58,9 +58,9 @@ const App = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [order, setOrder] = useState(initialOrders);
-  console.log("APP.js Order: ", order);
   let history = useHistory();
   let path = "order";
+  console.log("Submitted Order: ", order);
 
   const postOrder = (newOrder) => {
     console.log("running post order");
