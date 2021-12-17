@@ -27,6 +27,9 @@ const Navbar = styled.nav`
     margin-right: 5rem;
     cursor: pointer;
   }
+  a:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const App = () => {

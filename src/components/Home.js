@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link, useRouteMatch } from "react-router-dom";
 
 const HomeContainer = styled.section`
-  border: 1px solid red;
   height: 40rem;
   display: flex;
   flex-direction: column;
@@ -27,6 +26,7 @@ const HomeContainer = styled.section`
   }
   button:hover {
     background-color: #e3930f;
+    transform: scale(1.1);
   }
 `;
 
@@ -36,7 +36,7 @@ function Home() {
     <HomeContainer>
       <h1>Your favorite food, delivered while coding</h1>
       <Link to={`${url}pizza`}>
-        <button id="order-pizza">Pizza</button>
+        <button id="order-pizza">Order a Pizza!</button>
       </Link>
     </HomeContainer>
   );
