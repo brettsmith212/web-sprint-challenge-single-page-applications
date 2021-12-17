@@ -11,8 +11,9 @@ const OrderFormContainer = styled.section`
     font-size: ${({ theme }) => theme.fontSize.h3};
   }
 
-  h4 {
-    font-size: ${({ theme }) => theme.fontSize.h4};
+  p {
+    font-size: ${({ theme }) => theme.fontSize.p};
+    color: ${({ theme }) => theme.colors.red};
   }
 
   button {
@@ -71,28 +72,51 @@ const SpecialInstructions = styled.div`
   }
 `;
 
-function OrderForm() {
+function OrderForm(props) {
+  const { formValues, changedInput, formErrors, submitForm } = props;
+
+  const onChange = (e) => {
+    const { name, value, checked, type } = e.target;
+    const valueNeeded = type === "checkbox" ? checked : value;
+    console.log(name, valueNeeded);
+    changedInput(name, valueNeeded);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    submitForm();
+  };
+
   return (
     <OrderFormContainer>
-      <form id="pizza-form">
+      <form id="pizza-form" onSubmit={onSubmit}>
         <h3>Build Your Own Pizza</h3>
         <OrderHeader>
           <h3>Enter Your Name</h3>
-          <h4>Required</h4>
+          <p>*Required</p>
         </OrderHeader>
         <SpecialInstructions>
+          <p>{formErrors.name}</p>
           <input
             id="name-input"
+            name="name"
             type="text"
             placeholder="Enter Your Name Here"
+            onChange={onChange}
+            value={formValues.name}
           />
         </SpecialInstructions>
         <OrderHeader>
           <h3>Choice of Size</h3>
-          <h4>Required</h4>
+          <p>*Required</p>
         </OrderHeader>
         <DropDown>
-          <select name="orderSize" id="size-dropdown">
+          <select
+            name="orderSize"
+            id="size-dropdown"
+            onChange={onChange}
+            value={formValues.orderSize}
+          >
             <option value="">--Select A Size--</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
@@ -102,31 +126,61 @@ function OrderForm() {
         </DropDown>
         <OrderHeader>
           <h3>Add Toppings</h3>
-          <h4>Required</h4>
+          <p>*Required</p>
         </OrderHeader>
         <ToppingsWrapper>
           <label>
-            <input type="checkbox" name="pepperoni" />
+            <input
+              type="checkbox"
+              name="pepperoni"
+              onChange={onChange}
+              value={formValues.pepperoni}
+            />
             Pepperoni
           </label>
           <label>
-            <input type="checkbox" name="sausage" />
+            <input
+              type="checkbox"
+              name="sausage"
+              onChange={onChange}
+              value={formValues.sausage}
+            />
             Sausage
           </label>
           <label>
-            <input type="checkbox" name="grilledChicken" />
+            <input
+              type="checkbox"
+              name="grilledChicken"
+              onChange={onChange}
+              value={formValues.grilledChicken}
+            />
             Grilled Chicken
           </label>
           <label>
-            <input type="checkbox" name="onions" />
+            <input
+              type="checkbox"
+              name="onions"
+              onChange={onChange}
+              value={formValues.onions}
+            />
             Onions
           </label>
           <label>
-            <input type="checkbox" name="pineapple" />
+            <input
+              type="checkbox"
+              name="pineapple"
+              onChange={onChange}
+              value={formValues.pineapple}
+            />
             Pineapple
           </label>
           <label>
-            <input type="checkbox" name="ham" />
+            <input
+              type="checkbox"
+              name="ham"
+              onChange={onChange}
+              value={formValues.ham}
+            />
             Ham
           </label>
         </ToppingsWrapper>
@@ -137,7 +191,10 @@ function OrderForm() {
           <input
             id="special-text"
             type="text"
+            name="specialText"
             placeholder="Anything else you'd like to add?"
+            onChange={onChange}
+            value={formValues.specialText}
           />
         </SpecialInstructions>
         <button>Add to Order</button>
