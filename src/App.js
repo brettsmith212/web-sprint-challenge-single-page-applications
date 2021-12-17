@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./Theme";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import axios from "axios";
 import * as yup from "yup";
 import OrderForm from "./components/OrderForm";
 import Home from "./components/Home";
+import Order from "./components/Order";
 import schema from "./components/formSchema";
 
 const Navbar = styled.nav`
@@ -51,14 +52,21 @@ const initialFormErrors = {
   name: "",
 };
 
+const initialOrders = [];
+
 const App = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [order, setOrder] = useState(initialOrders);
+  console.log("APP.js Order: ", order);
+  let history = useHistory();
+  let path = "order";
 
   const postOrder = (newOrder) => {
+    console.log("running post order");
     axios
       .post("https://reqres.in/api/orders", newOrder)
-      .then((res) => console.log(res))
+      .then((res) => setOrder(res.data))
       .catch((err) => console.error(err))
       .finally(() => setFormValues(initialFormValues));
   };
@@ -92,6 +100,7 @@ const App = () => {
       specialText: formValues.specialText.trim(),
     };
     postOrder(newOrder);
+    history.push(path);
   };
 
   return (
@@ -99,7 +108,9 @@ const App = () => {
       <>
         <Navbar>
           <h2>Lambda Eats</h2>
-          <a href="/">Home</a>
+          <a id="order-pizza" href="/">
+            Home
+          </a>
         </Navbar>
         <Switch>
           <Route exact path="/">
@@ -112,6 +123,9 @@ const App = () => {
               formErrors={formErrors}
               submitForm={submitForm}
             />
+          </Route>
+          <Route path="/order">
+            <Order order={order} />
           </Route>
         </Switch>
       </>

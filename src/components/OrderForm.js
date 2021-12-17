@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, useHistory } from "react-router-dom";
 
 const OrderFormContainer = styled.section`
   border: 1px solid black;
@@ -84,6 +85,12 @@ function OrderForm(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     submitForm();
+  };
+
+  let history = useHistory();
+  let path = "order";
+  const routeOrder = () => {
+    history.push(path);
   };
 
   return (
@@ -196,7 +203,11 @@ function OrderForm(props) {
             value={formValues.specialText}
           />
         </SpecialInstructions>
+        {/* <Link to="/order"> */}
+
         <button id="order-button">Add to Order</button>
+
+        {/* </Link> */}
       </form>
     </OrderFormContainer>
   );
