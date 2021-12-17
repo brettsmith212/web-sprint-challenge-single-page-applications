@@ -28,6 +28,10 @@ const OrderFormContainer = styled.section`
   button:hover {
     background-color: ${({ theme }) => theme.colors.secondaryColor};
   }
+  button:disabled {
+    background-color: ${({ theme }) => theme.colors.lightGray};
+    cursor: not-allowed;
+  }
 `;
 
 const OrderHeader = styled.div`
@@ -73,7 +77,7 @@ const SpecialInstructions = styled.div`
 `;
 
 function OrderForm(props) {
-  const { formValues, changedInput, formErrors, submitForm } = props;
+  const { formValues, changedInput, formErrors, submitForm, disabled } = props;
 
   const onChange = (e) => {
     const { name, value, checked, type } = e.target;
@@ -125,7 +129,6 @@ function OrderForm(props) {
         </DropDown>
         <OrderHeader>
           <h3>Add Toppings</h3>
-          <p>*Required</p>
         </OrderHeader>
         <ToppingsWrapper>
           <label>
@@ -196,7 +199,9 @@ function OrderForm(props) {
             value={formValues.specialText}
           />
         </SpecialInstructions>
-        <button id="order-button">Add to Order</button>
+        <button id="order-button" disabled={disabled}>
+          Add to Order
+        </button>
       </form>
     </OrderFormContainer>
   );

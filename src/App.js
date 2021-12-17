@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./Theme";
@@ -53,14 +53,16 @@ const initialFormErrors = {
 };
 
 const initialOrders = [];
+const initialDisabled = true;
 
 const App = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [order, setOrder] = useState(initialOrders);
+  const [disabled, setDisabled] = useState(initialDisabled);
   let history = useHistory();
   let path = "order";
-  console.log("Submitted Order: ", order);
+  console.log("API Return: ", order);
 
   const postOrder = (newOrder) => {
     console.log("running post order");
@@ -103,6 +105,10 @@ const App = () => {
     history.push(path);
   };
 
+  useEffect(() => {
+    schema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
+
   return (
     <ThemeProvider theme={theme}>
       <>
@@ -122,6 +128,7 @@ const App = () => {
               changedInput={changedInput}
               formErrors={formErrors}
               submitForm={submitForm}
+              disabled={disabled}
             />
           </Route>
           <Route path="/order">
