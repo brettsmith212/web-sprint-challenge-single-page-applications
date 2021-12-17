@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, useRouteMatch } from "react-router-dom";
 
 const HomeContainer = styled.section`
   border: 1px solid red;
@@ -30,10 +31,13 @@ const HomeContainer = styled.section`
 `;
 
 function Home() {
+  const { url } = useRouteMatch();
   return (
     <HomeContainer>
       <h1>Your favorite food, delivered while coding</h1>
-      <button>Pizza</button>
+      <Link to={`${url}pizza`}>
+        <button id="order-pizza">Pizza</button>
+      </Link>
     </HomeContainer>
   );
 }
